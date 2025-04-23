@@ -1,12 +1,13 @@
 package com.example.infoplus.profile.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Profile {
+
+    protected Profile() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
