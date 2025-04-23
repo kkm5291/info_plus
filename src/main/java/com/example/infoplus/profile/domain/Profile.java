@@ -1,4 +1,4 @@
-package com.example.infoplus.domain;
+package com.example.infoplus.profile.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
