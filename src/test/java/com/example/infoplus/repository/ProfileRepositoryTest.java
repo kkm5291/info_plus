@@ -1,5 +1,6 @@
-package com.example.infoplus.profile.repository;
+package com.example.infoplus.repository;
 
+import com.example.infoplus.domain.Member;
 import com.example.infoplus.domain.Profile;
 import com.example.infoplus.repository.ProfileRepository;
 import jakarta.persistence.EntityManager;
@@ -16,22 +17,25 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @ActiveProfiles("test")
 class ProfileRepositoryTest {
 
-    Profile profile;
+    Member member;
 
     @Autowired
     ProfileRepository profileRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @Autowired
     EntityManager em;
 
     @BeforeEach
     void setUp() {
-        profile = Profile.of("KIM");
+        member = Member.of("KIM", 0);
     }
 
     @Test
     void testSaveAndFindProfile() {
-        profileRepository.save(profile);
+        memberRepository.save(member);
 
         em.flush();
         em.clear();
@@ -39,7 +43,9 @@ class ProfileRepositoryTest {
         Profile findProfile = profileRepository.findById(1L)
                 .orElseThrow(() -> new IllegalArgumentException("Profile not found"));
 
-        assertThat(profile).isEqualTo(findProfile);
+        Long profileId = member.getProfile().getId();
+        assertThat(findProfile.getId()).isEqualTo(profileId);
+
     }
 
     @Test

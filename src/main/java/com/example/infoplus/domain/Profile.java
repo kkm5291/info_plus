@@ -2,31 +2,21 @@ package com.example.infoplus.domain;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Profile {
 
-    protected Profile() {}
-
-    private Profile(String userName) {
-        this.userName = userName;
-        this.viewCount = 0L;
-    }
-
-    public static Profile of(String userName) {
-        return new Profile(userName);
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String userName;
+    @OneToOne(mappedBy = "profile")
+    private Member member;
 
     @Column(nullable = false)
     private Long viewCount;
@@ -37,5 +27,20 @@ public class Profile {
     @PrePersist
     protected void onCreate() {
         this.createdDate = LocalDateTime.now();
+    }
+
+    protected Profile() {}
+
+    private Profile(Member member) {
+        this.member = member;
+        this.viewCount = 0L;
+    }
+
+    public static Profile of(Member member) {
+        return new Profile(member);
+    }
+
+    public void addMember(Member member) {
+        this.member = member;
     }
 }
