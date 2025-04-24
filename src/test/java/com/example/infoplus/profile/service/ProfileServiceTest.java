@@ -25,10 +25,10 @@ class ProfileServiceTest {
     }
 
     @Test
-    void getProfile() {
+    void getProfileById() {
         BDDMockito.given(profileRepository.findById(1L)).willReturn(Optional.of(Profile.of("KIM")));
 
-        Profile profile = profileService.getProfile();
+        Profile profile = profileService.getProfileById(1L);
         assertNotNull(profile);
     }
 }
