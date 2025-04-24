@@ -1,17 +1,19 @@
 package com.example.infoplus.profile.domain;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Profile {
 
     protected Profile() {}
 
-    protected Profile(String userName) {
+    private Profile(String userName) {
         this.userName = userName;
+        this.viewCount = 0L;
     }
 
     public static Profile of(String userName) {
@@ -20,26 +22,20 @@ public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String userName;
 
     @Column(nullable = false)
-    private Long viewCount = 0L;
+    private Long viewCount;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDateTime createdDate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Profile profile = (Profile) o;
-        return Objects.equals(id, profile.id) && Objects.equals(userName, profile.userName) && Objects.equals(viewCount, profile.viewCount) && Objects.equals(createdDate, profile.createdDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, userName, viewCount, createdDate);
+    @PrePersist
+    protected void onCreate() {
+        this.createdDate = LocalDateTime.now();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.infoplus.profile.repository;
 
 import com.example.infoplus.profile.domain.Profile;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ class ProfileRepositoryTest {
     Profile profile;
 
     @Autowired
-    private ProfileRepository profileRepository;
+    ProfileRepository profileRepository;
+
+    @Autowired
+    EntityManager em;
 
     @BeforeEach
     void setUp() {
@@ -28,6 +32,9 @@ class ProfileRepositoryTest {
     void testSaveAndFindProfile() {
         profileRepository.save(profile);
 
+        em.flush();
+        em.clear();
+
         Profile findProfile = profileRepository.findById(1L)
                 .orElseThrow(() -> new IllegalArgumentException("Profile not found"));
 
@@ -35,7 +42,7 @@ class ProfileRepositoryTest {
     }
 
     @Test
-    void testFindProfile_Error() {
+    void testFindProfile_notFoundError() {
         assertThatThrownBy(() -> profileRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("Profile not found")));
     }
 }
