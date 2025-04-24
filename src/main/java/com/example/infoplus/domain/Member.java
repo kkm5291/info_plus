@@ -24,13 +24,13 @@ public class Member {
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
-    private Member(String name, Integer point) {
+    private Member(String name) {
         this.name = name;
-        this.point = point;
+        this.point = 0;
     }
 
-    public static Member of(String name, Integer point) {
-        Member member = new Member(name, point);
+    public static Member of(String name) {
+        Member member = new Member(name);
         member.addProfile(Profile.of(member));
         return member;
     }

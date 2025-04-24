@@ -6,9 +6,11 @@
 - ID (ID)
 - 회원 이름 (userName)
 - 포인트 (point)
+- Profile (Profile) OneToOne 연관관계 -> 주인
 
 ## Profile 도메인 설계
-- Member (member)
+- ID (ID)
+- Member (Member) oneToOne 연관관계
 - 프로필 상세 조회수 (viewCount)
 - 프로필 등록 날짜 (createdDate)
 

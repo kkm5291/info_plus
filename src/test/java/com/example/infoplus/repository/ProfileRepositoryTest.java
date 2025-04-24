@@ -2,7 +2,6 @@ package com.example.infoplus.repository;
 
 import com.example.infoplus.domain.Member;
 import com.example.infoplus.domain.Profile;
-import com.example.infoplus.repository.ProfileRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ class ProfileRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        member = Member.of("KIM", 0);
+        member = Member.of("KIM");
     }
 
     @Test
