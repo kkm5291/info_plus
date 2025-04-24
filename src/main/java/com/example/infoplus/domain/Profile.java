@@ -1,4 +1,4 @@
-package com.example.infoplus.profile.domain;
+package com.example.infoplus.domain;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

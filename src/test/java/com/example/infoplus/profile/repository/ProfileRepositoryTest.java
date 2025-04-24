@@ -1,6 +1,7 @@
 package com.example.infoplus.profile.repository;
 
-import com.example.infoplus.profile.domain.Profile;
+import com.example.infoplus.domain.Profile;
+import com.example.infoplus.repository.ProfileRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,9 @@
 package com.example.infoplus.profile.service;
 
-import com.example.infoplus.profile.domain.Profile;
-import com.example.infoplus.profile.repository.ProfileRepository;
+import com.example.infoplus.domain.Profile;
+import com.example.infoplus.repository.ProfileRepository;
+import com.example.infoplus.service.ProfileService;
+import com.example.infoplus.service.ProfileServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;

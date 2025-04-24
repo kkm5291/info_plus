@@ -1,7 +1,7 @@
-package com.example.infoplus.profile.service;
+package com.example.infoplus.service;
 
-import com.example.infoplus.profile.domain.Profile;
-import com.example.infoplus.profile.repository.ProfileRepository;
+import com.example.infoplus.domain.Profile;
+import com.example.infoplus.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

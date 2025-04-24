@@ -1,4 +1,4 @@
-package com.example.infoplus.profile.repository;
+package com.example.infoplus.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
