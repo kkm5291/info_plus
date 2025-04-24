@@ -2,9 +2,13 @@
 
 # 1. 회원 프로필 목록 조회 API
 
-## Profile 도메인 설계
+## Member 도메인 설계
 - ID (ID)
 - 회원 이름 (userName)
+- 포인트 (point)
+
+## Profile 도메인 설계
+- Member (member)
 - 프로필 상세 조회수 (viewCount)
 - 프로필 등록 날짜 (createdDate)
 
