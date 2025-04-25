@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,6 +19,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -76,9 +79,9 @@ class ProfileQueryRepositoryTest {
 
     @Test
     void findAllProfilesWithSort_viewCountDESC() {
-        BDDMockito.given(profileRepository.findById(0L)).willReturn(java.util.Optional.of(kim.getProfile()));
-        BDDMockito.given(profileRepository.findById(1L)).willReturn(java.util.Optional.of(lee.getProfile()));
-        BDDMockito.given(profileRepository.findById(2L)).willReturn(java.util.Optional.of(gong.getProfile()));
+        given(profileRepository.findById(0L)).willReturn(java.util.Optional.of(kim.getProfile()));
+        given(profileRepository.findById(1L)).willReturn(java.util.Optional.of(lee.getProfile()));
+        given(profileRepository.findById(2L)).willReturn(java.util.Optional.of(gong.getProfile()));
 
         Profile findKimProfile = profileRepository.findById(0L).orElse(null);
         Profile findLeeProfile = profileRepository.findById(1L).orElse(null);
@@ -99,5 +102,11 @@ class ProfileQueryRepositoryTest {
         assertThat(result.get(0).getMember().getName()).isEqualTo("김");
         assertThat(result.get(1).getMember().getName()).isEqualTo("이");
         assertThat(result.get(2).getMember().getName()).isEqualTo("공");
+    }
+
+    @Test
+    void findAllProfilesWithPagingAndSorting() {
+        Page<Profile> allProfilesWithPagingAndSorting = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 1));
+
     }
 }
