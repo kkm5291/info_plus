@@ -104,9 +104,9 @@ class ProfileQueryRepositoryTest {
         assertThat(result.get(2).getMember().getName()).isEqualTo("공");
     }
 
-    @Test
-    void findAllProfilesWithPagingAndSorting() {
-        Page<Profile> allProfilesWithPagingAndSorting = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 1));
-
-    }
+//    @Test
+//    void findAllProfilesWithPagingAndSorting() {
+//        Page<Profile> allProfilesWithPagingAndSorting = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 1));
+//
+//    }
 }

@@ -5,8 +5,6 @@ import com.example.infoplus.domain.profile.ProfileSortType;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,15 +23,15 @@ public class ProfileQueryRepository {
                 .orderBy(createSpecifier(sortType))
                 .fetch();
     }
-
-    public Page<Profile> findAllProfilesWithPagingAndSorting(ProfileSortType sortType, Pageable pageable) {
-
-        jpaQueryFactory.selectFrom(profile)
-                .orderBy(createSpecifier(sortType))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-    }
+//
+//    public Page<Profile> findAllProfilesWithPagingAndSorting(ProfileSortType sortType, Pageable pageable) {
+//
+//        jpaQueryFactory.selectFrom(profile)
+//                .orderBy(createSpecifier(sortType))
+//                .offset(pageable.getOffset())
+//                .limit(pageable.getPageSize())
+//                .fetch();
+//    }
 
     private OrderSpecifier<?> createSpecifier(ProfileSortType sortType) {
         if (sortType == NAME_ASC) {
