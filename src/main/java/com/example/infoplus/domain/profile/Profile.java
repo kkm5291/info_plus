@@ -1,5 +1,6 @@
-package com.example.infoplus.domain;
+package com.example.infoplus.domain.profile;
 
+import com.example.infoplus.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,5 +43,9 @@ public class Profile {
 
     public void addMember(Member member) {
         this.member = member;
+    }
+
+    public void increaseViewCount() {
+        this.viewCount++;
     }
 }
