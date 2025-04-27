@@ -2,7 +2,7 @@ package com.example.infoplus.domain.profile.repository;
 
 import com.example.infoplus.domain.profile.ProfileSortType;
 import com.example.infoplus.domain.profile.dto.response.ProfileResponseDto;
-import com.example.infoplus.domain.profile.response.QProfileResponseDto_ProfileList;
+import com.example.infoplus.domain.profile.dto.response.QProfileResponseDto_ProfileList;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.example.infoplus.domain.profile.ProfileSortType.*;
-import static com.example.infoplus.domain.profile.QProfile.profile;
+import static com.example.infoplus.domain.profile.entity.QProfile.profile;
 
 @Repository
 @RequiredArgsConstructor
