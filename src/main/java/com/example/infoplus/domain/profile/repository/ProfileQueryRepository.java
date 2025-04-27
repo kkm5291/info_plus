@@ -27,6 +27,7 @@ public class ProfileQueryRepository {
 
         List<ProfileResponseDto.ProfileList> profiles = jpaQueryFactory
                 .select(new QProfileResponseDto_ProfileList(
+                        profile.id,
                         profile.member.name,
                         profile.viewCount,
                         profile.createdDate
