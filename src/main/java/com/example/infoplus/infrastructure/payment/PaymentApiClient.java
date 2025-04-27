@@ -1,9 +1,9 @@
 package com.example.infoplus.infrastructure.payment;
 
-import com.example.infoplus.domain.payment.dto.request.PayRequestDto;
-import com.example.infoplus.domain.payment.dto.response.PayResponseDto;
-import org.springframework.http.ResponseEntity;
+
+import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
+import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
 
 public interface PaymentApiClient {
-    PayResponseDto.Toss approvePayment(PayRequestDto.Toss payRequestDto);
+    PaymentResponse.Toss approvePayment(PaymentRequest.Toss payRequestDto);
 }

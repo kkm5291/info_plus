@@ -22,3 +22,6 @@ payment:
     secret-key: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
     base-url: https://api.tosspayments.com/v1/payments
     confirm-endpoint: /confirm
+  kakao:
+    secret-key: DEV9CD15AA976D0516E46D90582099FCF7367E98
+    cid: F8890BBF10EBD684B4D4

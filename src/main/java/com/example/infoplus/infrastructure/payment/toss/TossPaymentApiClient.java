@@ -1,21 +1,20 @@
 package com.example.infoplus.infrastructure.payment.toss;
 
-import com.example.infoplus.domain.payment.dto.request.PayRequestDto;
-import com.example.infoplus.domain.payment.dto.response.PayResponseDto;
+import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
+import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
 import com.example.infoplus.infrastructure.payment.PaymentApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-@Service
-public class TossPayment implements PaymentApiClient {
+@Component
+public class TossPaymentApiClient implements PaymentApiClient {
 
     @Value("${payment.toss.secret-key}")
     private String secretKey;
@@ -27,7 +26,7 @@ public class TossPayment implements PaymentApiClient {
     private String tossConfirmEndpoint;
 
     @Override
-    public PayResponseDto.Toss approvePayment(PayRequestDto.Toss payRequestDto) {
+    public PaymentResponse.Toss approvePayment(PaymentRequest.Toss paymentRequestDto) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -37,13 +36,13 @@ public class TossPayment implements PaymentApiClient {
                         .getBytes(StandardCharsets.UTF_8));
         headers.set("Authorization", "Basic " + encodedSecretKey);
 
-        HttpEntity<PayRequestDto.Toss> httpEntity = new HttpEntity<>(payRequestDto, headers);
+        HttpEntity<PaymentRequest.Toss> httpEntity = new HttpEntity<>(paymentRequestDto, headers);
 
         RestTemplate restTemplate = new RestTemplate();
 
         return restTemplate.postForEntity(
                 tossPaymentBaseUrl + tossConfirmEndpoint,
                 httpEntity,
-                PayResponseDto.Toss.class).getBody();
+                PaymentResponse.Toss.class).getBody();
     }
 }

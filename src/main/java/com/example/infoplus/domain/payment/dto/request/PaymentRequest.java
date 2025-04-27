@@ -3,7 +3,8 @@ package com.example.infoplus.domain.payment.dto.request;
 import lombok.Getter;
 import lombok.Setter;
 
-public class PayRequestDto {
+
+public class PaymentRequest {
 
     @Getter
     @Setter
@@ -11,5 +12,6 @@ public class PayRequestDto {
         private String paymentKey;
         private String orderId;
         private Long amount;
+        private Long memberId;
     }
 }
