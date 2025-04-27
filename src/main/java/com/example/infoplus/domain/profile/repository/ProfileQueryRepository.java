@@ -1,7 +1,10 @@
-package com.example.infoplus.repository;
+package com.example.infoplus.domain.profile.repository;
 
+import com.example.infoplus.domain.member.QMember;
 import com.example.infoplus.domain.profile.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
+import com.example.infoplus.domain.profile.response.ProfileResponseDto;
+import com.example.infoplus.domain.profile.response.QProfileResponseDto_ProfileList;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,9 +25,15 @@ public class ProfileQueryRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Page<Profile> findAllProfilesWithPagingAndSorting(ProfileSortType sortType, Pageable pageable) {
+    public Page<ProfileResponseDto.ProfileList> findAllProfilesWithPagingAndSorting(ProfileSortType sortType, Pageable pageable) {
 
-        List<Profile> profiles = jpaQueryFactory.selectFrom(profile)
+        List<ProfileResponseDto.ProfileList> profiles = jpaQueryFactory
+                .select(new QProfileResponseDto_ProfileList(
+                        profile.member.name,
+                        profile.viewCount,
+                        profile.createdDate
+                ))
+                .from(profile)
                 .orderBy(createSpecifier(sortType))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

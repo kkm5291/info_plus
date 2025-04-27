@@ -1,13 +1,15 @@
-package com.example.infoplus.repository;
+package com.example.infoplus.domain.profile.repository;
 
 import com.example.infoplus.config.QueryDSLConfig;
 import com.example.infoplus.domain.member.Member;
 import com.example.infoplus.domain.profile.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
+import com.example.infoplus.domain.profile.repository.ProfileQueryRepository;
+import com.example.infoplus.domain.profile.repository.ProfileRepository;
+import com.example.infoplus.domain.profile.response.ProfileResponseDto;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
@@ -59,24 +61,24 @@ class ProfileQueryRepositoryTest {
 
     @Test
     void findAllProfilesWithSort_nameASC() {
-        Page<Profile> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 3));
-        List<Profile> result = findProfileWithTwoSize.getContent();
+        Page<ProfileResponseDto.ProfileList> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 3));
+        List<ProfileResponseDto.ProfileList> result = findProfileWithTwoSize.getContent();
 
         assertThat(result).hasSize(3);
-        assertThat(result.get(0).getMember().getName()).isEqualTo("공");
-        assertThat(result.get(1).getMember().getName()).isEqualTo("김");
-        assertThat(result.get(2).getMember().getName()).isEqualTo("이");
+        assertThat(result.get(0).getName()).isEqualTo("공");
+        assertThat(result.get(1).getName()).isEqualTo("김");
+        assertThat(result.get(2).getName()).isEqualTo("이");
     }
 
     @Test
     void findAllProfilesWithSort_dateCreatedDESC() {
-        Page<Profile> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.DATE_CREATED_DESC, PageRequest.of(0, 3));
-        List<Profile> result = findProfileWithTwoSize.getContent();
+        Page<ProfileResponseDto.ProfileList> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.DATE_CREATED_DESC, PageRequest.of(0, 3));
+        List<ProfileResponseDto.ProfileList> result = findProfileWithTwoSize.getContent();
 
         assertThat(result).hasSize(3);
-        assertThat(result.get(0).getMember().getName()).isEqualTo("공");
-        assertThat(result.get(1).getMember().getName()).isEqualTo("이");
-        assertThat(result.get(2).getMember().getName()).isEqualTo("김");
+        assertThat(result.get(0).getName()).isEqualTo("공");
+        assertThat(result.get(1).getName()).isEqualTo("이");
+        assertThat(result.get(2).getName()).isEqualTo("김");
     }
 
     @Test
@@ -98,19 +100,19 @@ class ProfileQueryRepositoryTest {
         em.flush();
         em.clear();
 
-        Page<Profile> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.VIEW_COUNT_DESC, PageRequest.of(0, 3));
-        List<Profile> result = findProfileWithTwoSize.getContent();
+        Page<ProfileResponseDto.ProfileList> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.VIEW_COUNT_DESC, PageRequest.of(0, 3));
+        List<ProfileResponseDto.ProfileList> result = findProfileWithTwoSize.getContent();
 
         assertThat(result).hasSize(3);
-        assertThat(result.get(0).getMember().getName()).isEqualTo("김");
-        assertThat(result.get(1).getMember().getName()).isEqualTo("이");
-        assertThat(result.get(2).getMember().getName()).isEqualTo("공");
+        assertThat(result.get(0).getName()).isEqualTo("김");
+        assertThat(result.get(1).getName()).isEqualTo("이");
+        assertThat(result.get(2).getName()).isEqualTo("공");
     }
 
     @Test
     void findAllProfilesWithPagingAndSorting() {
-        Page<Profile> findProfile = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 1));
-        Page<Profile> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 2));
+        Page<ProfileResponseDto.ProfileList> findProfile = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 1));
+        Page<ProfileResponseDto.ProfileList> findProfileWithTwoSize = profileQueryRepository.findAllProfilesWithPagingAndSorting(ProfileSortType.NAME_ASC, PageRequest.of(0, 2));
 
         assertThat(findProfile.getContent().size()).isEqualTo(1);
         assertThat(findProfileWithTwoSize.getContent().size()).isEqualTo(2);
