@@ -4,8 +4,6 @@ import com.example.infoplus.config.QueryDSLConfig;
 import com.example.infoplus.domain.member.Member;
 import com.example.infoplus.domain.profile.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
-import com.example.infoplus.domain.profile.repository.ProfileQueryRepository;
-import com.example.infoplus.domain.profile.repository.ProfileRepository;
 import com.example.infoplus.domain.profile.response.ProfileResponseDto;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -116,7 +114,5 @@ class ProfileQueryRepositoryTest {
 
         assertThat(findProfile.getContent().size()).isEqualTo(1);
         assertThat(findProfileWithTwoSize.getContent().size()).isEqualTo(2);
-
-
     }
 }

@@ -1,7 +1,5 @@
 package com.example.infoplus.domain.profile.repository;
 
-import com.example.infoplus.domain.member.QMember;
-import com.example.infoplus.domain.profile.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
 import com.example.infoplus.domain.profile.response.ProfileResponseDto;
 import com.example.infoplus.domain.profile.response.QProfileResponseDto_ProfileList;
