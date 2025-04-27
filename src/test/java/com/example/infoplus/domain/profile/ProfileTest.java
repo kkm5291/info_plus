@@ -1,6 +1,7 @@
 package com.example.infoplus.domain.profile;
 
-import com.example.infoplus.domain.member.Member;
+import com.example.infoplus.domain.member.entity.Member;
+import com.example.infoplus.domain.profile.entity.Profile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

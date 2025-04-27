@@ -1,4 +1,4 @@
-package com.example.infoplus.domain.profile.response;
+package com.example.infoplus.domain.profile.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;

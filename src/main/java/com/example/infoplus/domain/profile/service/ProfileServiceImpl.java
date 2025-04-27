@@ -1,11 +1,11 @@
 package com.example.infoplus.domain.profile.service;
 
-import com.example.infoplus.domain.profile.Profile;
+import com.example.infoplus.domain.profile.entity.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
 import com.example.infoplus.domain.profile.repository.ProfileQueryRepository;
 import com.example.infoplus.domain.profile.repository.ProfileRepository;
-import com.example.infoplus.domain.profile.request.ProfileRequestDto;
-import com.example.infoplus.domain.profile.response.ProfileResponseDto;
+import com.example.infoplus.domain.profile.dto.request.ProfileRequestDto;
+import com.example.infoplus.domain.profile.dto.response.ProfileResponseDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     @Transactional
-    public ResponseEntity<?> increaseProfileViews(ProfileRequestDto.viewDetail viewDetail) {
+    public ResponseEntity<?> increaseProfileViewCount(ProfileRequestDto.viewDetail viewDetail) {
         Long profileId = viewDetail.getId();
 
         Profile findProfile = profileRepository.findById(profileId)

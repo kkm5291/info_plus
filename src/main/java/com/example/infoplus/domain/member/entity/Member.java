@@ -1,6 +1,6 @@
-package com.example.infoplus.domain.member;
+package com.example.infoplus.domain.member.entity;
 
-import com.example.infoplus.domain.profile.Profile;
+import com.example.infoplus.domain.profile.entity.Profile;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

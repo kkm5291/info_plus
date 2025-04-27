@@ -1,20 +1,20 @@
 package com.example.infoplus.domain.profile.repository;
 
 import com.example.infoplus.config.QueryDSLConfig;
-import com.example.infoplus.domain.member.Member;
-import com.example.infoplus.domain.profile.Profile;
+import com.example.infoplus.domain.member.entity.Member;
+import com.example.infoplus.domain.profile.entity.Profile;
 import com.example.infoplus.domain.profile.ProfileSortType;
-import com.example.infoplus.domain.profile.response.ProfileResponseDto;
+import com.example.infoplus.domain.profile.dto.response.ProfileResponseDto;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ class ProfileQueryRepositoryTest {
     @Autowired
     EntityManager em;
 
-    @MockitoBean
+    @Mock
     ProfileRepository profileRepository;
 
     @BeforeEach

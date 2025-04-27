@@ -1,7 +1,7 @@
 package com.example.infoplus.domain.profile.repository;
 
 import com.example.infoplus.domain.profile.ProfileSortType;
-import com.example.infoplus.domain.profile.response.ProfileResponseDto;
+import com.example.infoplus.domain.profile.dto.response.ProfileResponseDto;
 import com.example.infoplus.domain.profile.response.QProfileResponseDto_ProfileList;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;

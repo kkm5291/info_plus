@@ -1,7 +1,7 @@
 package com.example.infoplus.domain.profile.controller;
 
 import com.example.infoplus.domain.profile.ProfileSortType;
-import com.example.infoplus.domain.profile.request.ProfileRequestDto;
+import com.example.infoplus.domain.profile.dto.request.ProfileRequestDto;
 import com.example.infoplus.domain.profile.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,6 @@ public class ProfileController {
 
     @PostMapping("/increase-view-count")
     public ResponseEntity<?> increaseProfileViews(@RequestBody ProfileRequestDto.viewDetail viewDetail) {
-        return profileService.increaseProfileViews(viewDetail);
+        return profileService.increaseProfileViewCount(viewDetail);
     }
 }

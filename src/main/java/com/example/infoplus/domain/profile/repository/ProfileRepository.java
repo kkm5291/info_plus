@@ -1,6 +1,6 @@
 package com.example.infoplus.domain.profile.repository;
 
-import com.example.infoplus.domain.profile.Profile;
+import com.example.infoplus.domain.profile.entity.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
