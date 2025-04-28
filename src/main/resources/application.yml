@@ -24,4 +24,4 @@ payment:
     confirm-endpoint: /confirm
   kakao:
     secret-key: DEV9CD15AA976D0516E46D90582099FCF7367E98
-    cid: F8890BBF10EBD684B4D4
+    cid: TC0ONETIME

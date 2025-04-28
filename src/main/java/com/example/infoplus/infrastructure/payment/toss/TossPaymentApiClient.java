@@ -1,20 +1,23 @@
 package com.example.infoplus.infrastructure.payment.toss;
 
 import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
+import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
 import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
-import com.example.infoplus.infrastructure.payment.PaymentApiClient;
+import com.example.infoplus.domain.payment.dto.response.TossPaymentResponse;
+import com.example.infoplus.infrastructure.payment.AbstractPaymentApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
-public class TossPaymentApiClient implements PaymentApiClient {
+public class TossPaymentApiClient extends AbstractPaymentApiClient<TossPaymentRequest> {
+
+    public static final String AUTHORIZATION_PREFIX = "Basic ";
+    public static final String COLON_SEPARATOR = ":";
 
     @Value("${payment.toss.secret-key}")
     private String secretKey;
@@ -26,23 +29,23 @@ public class TossPaymentApiClient implements PaymentApiClient {
     private String tossConfirmEndpoint;
 
     @Override
-    public PaymentResponse.Toss approvePayment(PaymentRequest.Toss paymentRequestDto) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String encodedSecretKey = Base64
-                .getEncoder()
-                .encodeToString((secretKey + ":")
-                        .getBytes(StandardCharsets.UTF_8));
-        headers.set("Authorization", "Basic " + encodedSecretKey);
-
-        HttpEntity<PaymentRequest.Toss> httpEntity = new HttpEntity<>(paymentRequestDto, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
+    public PaymentResponse approvePayment(TossPaymentRequest paymentRequest) {
+        HttpHeaders headers = createHeaders();
+        HttpEntity<PaymentRequest> httpEntity = new HttpEntity<>(paymentRequest, headers);
 
         return restTemplate.postForEntity(
                 tossPaymentBaseUrl + tossConfirmEndpoint,
                 httpEntity,
-                PaymentResponse.Toss.class).getBody();
+                TossPaymentResponse.class).getBody();
+    }
+
+    @Override
+    public void setAuthorization(HttpHeaders headers) {
+        String encodedSecretKey = Base64
+                .getEncoder()
+                .encodeToString((secretKey + COLON_SEPARATOR)
+                        .getBytes(StandardCharsets.UTF_8));
+
+        headers.set(AUTHORIZATION, AUTHORIZATION_PREFIX + encodedSecretKey);
     }
 }

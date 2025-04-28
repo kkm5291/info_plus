@@ -4,5 +4,5 @@ import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface PaymentService {
-    ResponseEntity<?> chargePoint(PaymentRequest.Toss payRequestDto);
+    ResponseEntity<?> chargePoint(PaymentRequest paymentRequest);
 }

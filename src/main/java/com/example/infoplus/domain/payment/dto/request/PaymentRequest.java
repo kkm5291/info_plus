@@ -4,14 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class PaymentRequest {
+@Getter
+@Setter
+public abstract class PaymentRequest {
 
-    @Getter
-    @Setter
-    public static class Toss {
-        private String paymentKey;
-        private String orderId;
-        private Long amount;
-        private Long memberId;
-    }
+    private Long memberId;
 }
