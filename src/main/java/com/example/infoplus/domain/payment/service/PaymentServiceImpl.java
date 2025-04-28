@@ -3,13 +3,10 @@ package com.example.infoplus.domain.payment.service;
 import com.example.infoplus.domain.member.entity.Member;
 import com.example.infoplus.domain.member.repository.MemberRepository;
 import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
-import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
-import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
-import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
+import com.example.infoplus.domain.payment.dto.response.CommonPaymentResponse;
 import com.example.infoplus.domain.payment.repository.PaymentRepository;
 import com.example.infoplus.infrastructure.payment.PaymentApiClient;
-import com.example.infoplus.infrastructure.payment.kakao.KakaoPaymentApiClient;
-import com.example.infoplus.infrastructure.payment.toss.TossPaymentApiClient;
+import com.example.infoplus.infrastructure.payment.PaymentApiClientHandler;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    private final TossPaymentApiClient tossPaymentApiClient;
-    private final KakaoPaymentApiClient kakaoPaymentApiClient;
+    private final PaymentApiClientHandler paymentApiClientHandler;
     private final MemberRepository memberRepository;
     private final PaymentRepository paymentRepository;
 
@@ -30,8 +26,10 @@ public class PaymentServiceImpl implements PaymentService {
         Member findMember = memberRepository.findById(request.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다"));
 
-        PaymentResponse toss = tossPaymentApiClient.approvePayment(request);
-        findMember.convertAmountToPoint(toss.getTotalAmount());
+        PaymentApiClient paymentApiClient = paymentApiClientHandler.getClient(request.getPaymentType());
+        CommonPaymentResponse response = paymentApiClient.approvePayment(request);
+
+        findMember.convertAmountToPoint(response.getTotalAmount());
         return ResponseEntity.ok().build();
     }
 }

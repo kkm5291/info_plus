@@ -18,6 +18,7 @@ public class CommonPaymentRequest {
     private String orderId;
     private Long amount;
 
+    // Kakao
     private String itemName;
     private Integer quantity;
     private Integer totalAmount;

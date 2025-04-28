@@ -1,12 +1,14 @@
 package com.example.infoplus.domain.payment.controller;
 
 import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
-import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
 import com.example.infoplus.domain.payment.service.PaymentService;
 import com.example.infoplus.infrastructure.payment.kakao.KakaoPaymentApiClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/payment")
@@ -27,21 +29,5 @@ public class PaymentController {
     @PostMapping("/ready")
     public ResponseEntity<?> kakaoPayment(@RequestBody CommonPaymentRequest request) {
         return kakaoPaymentApiClient.paymentReady(request);
-    }
-
-    @GetMapping("/toss/get")
-    public ResponseEntity<?> paymentTest(
-            @RequestParam("paymentKey") String paymentKey,
-            @RequestParam("orderId") String orderId,
-            @RequestParam("amount") long amount
-
-    ) {
-        CommonPaymentRequest paymentRequest = new CommonPaymentRequest();
-        paymentRequest.setPaymentKey(paymentKey);
-        paymentRequest.setOrderId(orderId);
-        paymentRequest.setAmount(amount);
-        paymentRequest.setMemberId(1L);
-
-        return payment(paymentRequest);
     }
 }

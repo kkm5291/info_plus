@@ -2,11 +2,9 @@ package com.example.infoplus.domain.payment.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class KakaoPaymentReadyResponse {
     private String tid;
     private String next_redirect_app_url;

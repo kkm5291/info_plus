@@ -3,16 +3,18 @@ package com.example.infoplus.infrastructure.payment.kakao;
 import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.KakaoPaymentApproveRequest;
 import com.example.infoplus.domain.payment.dto.request.KakaoPaymentReadyRequest;
-import com.example.infoplus.domain.payment.dto.request.KakaoPaymentRequest;
+import com.example.infoplus.domain.payment.dto.response.CommonPaymentResponse;
 import com.example.infoplus.domain.payment.dto.response.KakaoPaymentReadyResponse;
 import com.example.infoplus.domain.payment.dto.response.KakaoPaymentResponse;
-import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
+import com.example.infoplus.domain.payment.util.PaymentType;
 import com.example.infoplus.infrastructure.payment.AbstractPaymentApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 @Component
 public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
@@ -26,7 +28,7 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
     private String cid;
 
     @Override
-    public PaymentResponse approvePayment(CommonPaymentRequest request) {
+    public CommonPaymentResponse approvePayment(CommonPaymentRequest request) {
         KakaoPaymentApproveRequest approveRequest = KakaoPaymentApproveRequest.builder()
                 .cid(cid)
                 .tid(request.getTid())
@@ -37,15 +39,28 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
         HttpEntity<KakaoPaymentApproveRequest> httpEntity = new HttpEntity<>(approveRequest, createHeaders());
 
-        return restTemplate.postForEntity(
+        KakaoPaymentResponse kakao = restTemplate.postForEntity(
                 "https://open-api.kakaopay.com/online/v1/payment/approve",
                 httpEntity,
                 KakaoPaymentResponse.class).getBody();
+
+        return CommonPaymentResponse.builder()
+                .paymentId(kakao.getTid())
+                .orderId(kakao.getPartnerOrderId())
+                .totalAmount(kakao.getAmount().getTotal())
+                .status("SUCCESS")
+                .approvedAt(LocalDateTime.now().toString())
+                .build();
     }
 
     @Override
     public void setAuthorization(HttpHeaders headers) {
         headers.set(AUTHORIZATION, AUTHORIZATION_PREFIX + secretKey);
+    }
+
+    @Override
+    public PaymentType getType() {
+        return PaymentType.KAKAO;
     }
 
     public ResponseEntity<?> paymentReady(CommonPaymentRequest request) {

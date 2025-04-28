@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class KakaoPaymentResponse extends PaymentResponse {
+public class KakaoPaymentResponse {
     private String aid;
     private String tid;
     private String cid;

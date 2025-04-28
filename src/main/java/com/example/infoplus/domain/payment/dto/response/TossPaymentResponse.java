@@ -6,7 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
-public class TossPaymentResponse extends PaymentResponse {
+public class TossPaymentResponse {
+    private Long totalAmount;
     private String paymentKey;
     private String orderId;
     private String status;

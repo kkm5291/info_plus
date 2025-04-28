@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class KakaoPaymentRequest extends PaymentRequest {
+public class KakaoPaymentRequest {
     private String itemName;
     private Integer quantity;
     private Integer totalAmount;
