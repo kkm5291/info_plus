@@ -1,5 +1,6 @@
 package com.example.infoplus.infrastructure.payment.kakao;
 
+import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.KakaoPaymentApproveRequest;
 import com.example.infoplus.domain.payment.dto.request.KakaoPaymentReadyRequest;
 import com.example.infoplus.domain.payment.dto.request.KakaoPaymentRequest;
@@ -14,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KakaoPaymentApiClient extends AbstractPaymentApiClient<KakaoPaymentRequest> {
+public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
     public static final String AUTHORIZATION_PREFIX = "SECRET_KEY ";
 
@@ -25,13 +26,13 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient<KakaoPayment
     private String cid;
 
     @Override
-    public PaymentResponse approvePayment(KakaoPaymentRequest paymentRequest) {
+    public PaymentResponse approvePayment(CommonPaymentRequest request) {
         KakaoPaymentApproveRequest approveRequest = KakaoPaymentApproveRequest.builder()
                 .cid(cid)
-                .tid(paymentRequest.getTid())
-                .partner_order_id(paymentRequest.getPartnerOrderId())
-                .partner_user_id(String.valueOf(paymentRequest.getMemberId()))
-                .pg_token(paymentRequest.getPgToken())
+                .tid(request.getTid())
+                .partner_order_id(request.getPartnerOrderId())
+                .partner_user_id(String.valueOf(request.getMemberId()))
+                .pg_token(request.getPgToken())
                 .build();
 
         HttpEntity<KakaoPaymentApproveRequest> httpEntity = new HttpEntity<>(approveRequest, createHeaders());
@@ -47,7 +48,7 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient<KakaoPayment
         headers.set(AUTHORIZATION, AUTHORIZATION_PREFIX + secretKey);
     }
 
-    public ResponseEntity<?> paymentReady(KakaoPaymentRequest request) {
+    public ResponseEntity<?> paymentReady(CommonPaymentRequest request) {
         KakaoPaymentReadyRequest readyRequest = KakaoPaymentReadyRequest.builder()
                 .cid(cid)
                 .partner_order_id(request.getPartnerOrderId())

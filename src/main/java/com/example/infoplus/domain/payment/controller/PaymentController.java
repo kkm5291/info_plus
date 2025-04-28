@@ -1,6 +1,6 @@
 package com.example.infoplus.domain.payment.controller;
 
-import com.example.infoplus.domain.payment.dto.request.KakaoPaymentRequest;
+import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
 import com.example.infoplus.domain.payment.service.PaymentService;
 import com.example.infoplus.infrastructure.payment.kakao.KakaoPaymentApiClient;
@@ -17,22 +17,15 @@ public class PaymentController {
 
     private final KakaoPaymentApiClient kakaoPaymentApiClient;
 
-    @PostMapping("/charge-point/toss")
+    @PostMapping("/charge-point")
     public ResponseEntity<?> payment(
-            @RequestBody TossPaymentRequest paymentRequest
+            @RequestBody CommonPaymentRequest request
     ) {
-        return paymentService.chargePoint(paymentRequest);
-    }
-
-    @PostMapping("/charge-point/kakao")
-    public ResponseEntity<?> payment(
-            @RequestBody KakaoPaymentRequest paymentRequest
-    ) {
-        return paymentService.chargePoint(paymentRequest);
+        return paymentService.chargePoint(request);
     }
 
     @PostMapping("/ready")
-    public ResponseEntity<?> kakaoPayment(@RequestBody KakaoPaymentRequest request) {
+    public ResponseEntity<?> kakaoPayment(@RequestBody CommonPaymentRequest request) {
         return kakaoPaymentApiClient.paymentReady(request);
     }
 
@@ -43,7 +36,7 @@ public class PaymentController {
             @RequestParam("amount") long amount
 
     ) {
-        TossPaymentRequest paymentRequest = new TossPaymentRequest();
+        CommonPaymentRequest paymentRequest = new CommonPaymentRequest();
         paymentRequest.setPaymentKey(paymentKey);
         paymentRequest.setOrderId(orderId);
         paymentRequest.setAmount(amount);

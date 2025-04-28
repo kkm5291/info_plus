@@ -1,5 +1,6 @@
 package com.example.infoplus.infrastructure.payment.toss;
 
+import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
 import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
@@ -14,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 @Component
-public class TossPaymentApiClient extends AbstractPaymentApiClient<TossPaymentRequest> {
+public class TossPaymentApiClient extends AbstractPaymentApiClient {
 
     public static final String AUTHORIZATION_PREFIX = "Basic ";
     public static final String COLON_SEPARATOR = ":";
@@ -29,7 +30,7 @@ public class TossPaymentApiClient extends AbstractPaymentApiClient<TossPaymentRe
     private String tossConfirmEndpoint;
 
     @Override
-    public PaymentResponse approvePayment(TossPaymentRequest paymentRequest) {
+    public PaymentResponse approvePayment(CommonPaymentRequest request) {
         HttpHeaders headers = createHeaders();
         HttpEntity<PaymentRequest> httpEntity = new HttpEntity<>(paymentRequest, headers);
 

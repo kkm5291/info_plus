@@ -2,6 +2,7 @@ package com.example.infoplus.domain.payment.service;
 
 import com.example.infoplus.domain.member.entity.Member;
 import com.example.infoplus.domain.member.repository.MemberRepository;
+import com.example.infoplus.domain.payment.dto.request.CommonPaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.PaymentRequest;
 import com.example.infoplus.domain.payment.dto.request.TossPaymentRequest;
 import com.example.infoplus.domain.payment.dto.response.PaymentResponse;
@@ -25,11 +26,11 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public ResponseEntity<?> chargePoint(PaymentRequest paymentRequest) {
-        Member findMember = memberRepository.findById(paymentRequest.getMemberId())
+    public ResponseEntity<?> chargePoint(CommonPaymentRequest request) {
+        Member findMember = memberRepository.findById(request.getMemberId())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다"));
 
-        PaymentResponse toss = tossPaymentApiClient.approvePayment((TossPaymentRequest) paymentRequest);
+        PaymentResponse toss = tossPaymentApiClient.approvePayment(request);
         findMember.convertAmountToPoint(toss.getTotalAmount());
         return ResponseEntity.ok().build();
     }
