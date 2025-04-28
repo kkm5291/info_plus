@@ -79,8 +79,10 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
         HttpEntity<KakaoPaymentReadyRequest> httpEntity = new HttpEntity<>(readyRequest, createHeaders());
 
-        return restTemplate.postForEntity("https://open-api.kakaopay.com/online/v1/payment/ready",
+        KakaoPaymentReadyResponse readyResponse = restTemplate.postForEntity("https://open-api.kakaopay.com/online/v1/payment/ready",
                 httpEntity,
-                KakaoPaymentReadyResponse.class);
+                KakaoPaymentReadyResponse.class).getBody();
+
+        return ResponseEntity.ok(readyResponse);
     }
 }

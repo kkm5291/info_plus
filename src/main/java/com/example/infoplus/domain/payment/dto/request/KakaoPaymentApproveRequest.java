@@ -1,8 +1,10 @@
 package com.example.infoplus.domain.payment.dto.request;
 
-import lombok.Builder;
+import lombok.*;
 
 @Builder
+@Getter
+@Setter
 public class KakaoPaymentApproveRequest {
     private String cid;
     private String tid;
@@ -10,3 +12,5 @@ public class KakaoPaymentApproveRequest {
     private String partner_user_id;
     private String pg_token;
 }
+
+
