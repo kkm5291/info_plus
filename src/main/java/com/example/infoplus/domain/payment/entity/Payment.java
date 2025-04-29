@@ -26,6 +26,7 @@ public class Payment {
 
     private Long totalAmount;
 
+    @Enumerated(EnumType.STRING)
     private PaymentStatusType status;
 
     private String approvedAt;
