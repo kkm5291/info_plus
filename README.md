@@ -30,4 +30,5 @@
 
 # 2. 페이먼트 기능 추가
  - 확장성 고려 Payment
-   - Toss [ ]
+   - Toss [ O ]
+   - KakaoPay [ O ]
