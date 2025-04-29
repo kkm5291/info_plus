@@ -5,7 +5,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommonPaymentRequest {
@@ -21,7 +20,7 @@ public class CommonPaymentRequest {
     // Kakao
     private String itemName;
     private Integer quantity;
-    private Integer totalAmount;
+    private Long totalAmount;
     private String partnerOrderId;
     private String cid;
     private String tid;

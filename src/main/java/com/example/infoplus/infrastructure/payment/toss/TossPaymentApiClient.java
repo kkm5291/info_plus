@@ -34,18 +34,9 @@ public class TossPaymentApiClient extends AbstractPaymentApiClient {
 
         HttpEntity<CommonPaymentRequest> httpEntity = new HttpEntity<>(request, headers);
 
-        TossPaymentResponse toss = restTemplate.postForEntity(
-                tossPaymentBaseUrl + tossConfirmEndpoint,
-                httpEntity,
-                TossPaymentResponse.class).getBody();
+        TossPaymentResponse toss = callTossPayment(httpEntity);
 
-        return CommonPaymentResponse.builder()
-                .paymentId(toss.getPaymentKey())
-                .orderId(toss.getOrderId())
-                .totalAmount(toss.getTotalAmount())
-                .status(toss.getStatus())
-                .approvedAt(toss.getApprovedAt())
-                .build();
+        return CommonPaymentResponse.fromToss(toss);
     }
 
     @Override
@@ -61,5 +52,12 @@ public class TossPaymentApiClient extends AbstractPaymentApiClient {
     @Override
     public PaymentType getType() {
         return PaymentType.TOSS;
+    }
+
+    private TossPaymentResponse callTossPayment(HttpEntity<CommonPaymentRequest> httpEntity) {
+        return restTemplate.postForEntity(
+                tossPaymentBaseUrl + tossConfirmEndpoint,
+                httpEntity,
+                TossPaymentResponse.class).getBody();
     }
 }

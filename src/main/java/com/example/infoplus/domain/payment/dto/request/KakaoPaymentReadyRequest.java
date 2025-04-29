@@ -16,7 +16,7 @@ public class KakaoPaymentReadyRequest {
     private String partner_user_id;
     private String item_name;
     private Integer quantity;
-    private Integer total_amount;
+    private Long total_amount;
     private Integer tax_free_amount;
     private String approval_url;
     private String cancel_url;

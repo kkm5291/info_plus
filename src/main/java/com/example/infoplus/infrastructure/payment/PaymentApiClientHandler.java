@@ -13,6 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PaymentApiClientHandler {
 
+    public static final String UNSUPPORTED_PAYMENT_TYPE_ERROR = "지원하지 않는 결제 타입입니다: ";
     private final Map<PaymentType, PaymentApiClient> paymentApiClientMap = new EnumMap<>(PaymentType.class);
     private final List<PaymentApiClient> clients;
 
@@ -23,11 +24,10 @@ public class PaymentApiClientHandler {
         }
     }
 
-
     public PaymentApiClient getClient(PaymentType type) {
         PaymentApiClient client = paymentApiClientMap.get(type);
         if (client == null) {
-            throw new IllegalArgumentException("지원하지 않는 결제 타입입니다: " + type);
+            throw new IllegalArgumentException(UNSUPPORTED_PAYMENT_TYPE_ERROR + type);
         }
         return client;
     }

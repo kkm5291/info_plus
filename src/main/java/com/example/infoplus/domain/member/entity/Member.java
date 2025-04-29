@@ -1,20 +1,18 @@
 package com.example.infoplus.domain.member.entity;
 
-import com.example.infoplus.domain.payment.entity.Payment;
 import com.example.infoplus.domain.profile.entity.Profile;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
+    public static final String INVALID_AMOUNT_ERROR = "잘못된 결제 금액 입니다.";
+    public static final int POINT_THRESHOLD = 0;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +39,9 @@ public class Member {
     }
 
     public void convertAmountToPoint(Long amount) {
+        if (amount < POINT_THRESHOLD) {
+            throw new IllegalArgumentException(INVALID_AMOUNT_ERROR);
+        }
         this.point += amount;
     }
 

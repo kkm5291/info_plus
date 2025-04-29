@@ -49,7 +49,7 @@ class ProfileRepositoryTest {
     }
 
     @Test
-    void testFindProfile_notFoundError() {
+    void testFindProfile_notFound_Error() {
         assertThatThrownBy(() -> profileRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("Profile not found")));
     }
 }

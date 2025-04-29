@@ -13,8 +13,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
+import org.springframework.web.client.RestClientException;
 
 @Component
 public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
@@ -26,6 +25,15 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
     @Value("${payment.kakao.cid}")
     private String cid;
+
+    @Value("${payment.kakao.base-url}")
+    private String kakaoPaymentBaseUrl;
+
+    @Value("${payment.kakao.ready-endpoint}")
+    private String kakaoReadyEndpoint;
+
+    @Value("${payment.kakao.approve-endpoint}")
+    private String kakaoApproveEndpoint;
 
     @Override
     public CommonPaymentResponse approvePayment(CommonPaymentRequest request) {
@@ -39,18 +47,9 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
         HttpEntity<KakaoPaymentApproveRequest> httpEntity = new HttpEntity<>(approveRequest, createHeaders());
 
-        KakaoPaymentResponse kakao = restTemplate.postForEntity(
-                "https://open-api.kakaopay.com/online/v1/payment/approve",
-                httpEntity,
-                KakaoPaymentResponse.class).getBody();
+        KakaoPaymentResponse kakao = callKakaoPayment(httpEntity);
 
-        return CommonPaymentResponse.builder()
-                .paymentId(kakao.getTid())
-                .orderId(kakao.getPartnerOrderId())
-                .totalAmount(kakao.getAmount().getTotal())
-                .status("SUCCESS")
-                .approvedAt(LocalDateTime.now().toString())
-                .build();
+        return CommonPaymentResponse.fromKakao(kakao);
     }
 
     @Override
@@ -79,10 +78,17 @@ public class KakaoPaymentApiClient extends AbstractPaymentApiClient {
 
         HttpEntity<KakaoPaymentReadyRequest> httpEntity = new HttpEntity<>(readyRequest, createHeaders());
 
-        KakaoPaymentReadyResponse readyResponse = restTemplate.postForEntity("https://open-api.kakaopay.com/online/v1/payment/ready",
+        KakaoPaymentReadyResponse readyResponse = restTemplate.postForEntity(kakaoPaymentBaseUrl + kakaoReadyEndpoint,
                 httpEntity,
                 KakaoPaymentReadyResponse.class).getBody();
 
         return ResponseEntity.ok(readyResponse);
+    }
+
+    private KakaoPaymentResponse callKakaoPayment(HttpEntity<KakaoPaymentApproveRequest> httpEntity) throws RestClientException {
+        return restTemplate.postForEntity(
+                kakaoPaymentBaseUrl + kakaoApproveEndpoint,
+                httpEntity,
+                KakaoPaymentResponse.class).getBody();
     }
 }
