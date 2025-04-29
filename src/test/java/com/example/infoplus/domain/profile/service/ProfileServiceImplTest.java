@@ -49,7 +49,7 @@ class ProfileServiceImplTest {
     }
 
     @Test
-    void increaseProfileViews_profileNotFoundError() {
+    void increaseProfileViews_profileNotFound_Error() {
         Long invalidProfileId = 999L;
         ProfileRequestDto.viewDetail viewDetail = new ProfileRequestDto.viewDetail();
         viewDetail.setId(invalidProfileId);
