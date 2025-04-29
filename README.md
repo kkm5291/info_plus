@@ -32,3 +32,9 @@
  - 확장성 고려 Payment
    - Toss [ O ]
    - KakaoPay [ O ]
+
+# 3. 쿠폰 기능 추가
+- 포인트 결제 시 쿠폰
+  - use [ O ]
+  - calculate [ O ]
+  - isAvailable [ O ]
