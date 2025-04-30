@@ -1,30 +1,7 @@
 spring:
-  application:
-    name: InfoPlus
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/info_plus?allowPublicKeyRetrieval=true&useSSL=false
-    username: user
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
-    open-in-view: true
-
-payment:
-  toss:
-    secret-key: test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6
-    base-url: https://api.tosspayments.com/v1/payments
-    confirm-endpoint: /confirm
-  kakao:
-    secret-key: DEV9CD15AA976D0516E46D90582099FCF7367E98
-    base-url: https://open-api.kakaopay.com/online/v1/payment
-    ready-endpoint: /ready
-    approve-endpoint: /approve
-    cid: TC0ONETIME
+  profiles:
+    group:
+      dev: dev
+      prod: prod
+server:
+  port: 8080

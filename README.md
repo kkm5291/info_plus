@@ -1,3 +1,7 @@
+# 참고사항
+- DockerFile 및 docker-compose.yml 준비
+  - db의 경우 docker image를 통한 기동
+
 # 주요 기능
 
 # 1. 회원 프로필 목록 조회 API
